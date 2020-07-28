@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    radioPlayerInit();
     videoPlayerInit();
+    radioPlayerInit();
     musicPlayerInit();
 });
