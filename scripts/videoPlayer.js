@@ -4,8 +4,11 @@ export const videoPlayerInit = () => {
           videoButtonStop = document.querySelector('.video-button__stop'),
           videoProgress = document.querySelector('.video-progress'),
           videoPassed = document.querySelector('.video-time__passed'),
-          videoTimeTotal = document.querySelector('.video-time__total');
+          videoTimeTotal = document.querySelector('.video-time__total'),
+          videoFullScreen = document.querySelector('.video-fullscreen'),
+          videoVolume = document.querySelector('.video-volume');
 
+    
 
     const toggleIcon = () => {
       if(videoPlayer.paused) {
@@ -30,14 +33,6 @@ export const videoPlayerInit = () => {
         videoPlayer.currentTime = 0;
     };
 
-    videoPlayer.addEventListener('click', togglePlay);
-    videoButtonPlay.addEventListener('click', togglePlay);
-
-    videoPlayer.addEventListener('play', toggleIcon);
-    videoPlayer.addEventListener('pause', toggleIcon);
-
-    videoButtonStop.addEventListener('click', stopPlay);
-
     const addZero = n => {
         if(n < 10) {
             return '0' + n;
@@ -46,6 +41,15 @@ export const videoPlayerInit = () => {
         }
     };
 
+    videoPlayer.addEventListener('click', togglePlay);
+    videoButtonPlay.addEventListener('click', togglePlay);
+
+    videoPlayer.addEventListener('play', toggleIcon);
+    videoPlayer.addEventListener('pause', toggleIcon);
+
+    videoButtonStop.addEventListener('click', stopPlay);
+
+    
     videoPlayer.addEventListener('timeupdate', () => {
         const currentTime = videoPlayer.currentTime;
         const duration = videoPlayer.duration;
@@ -68,5 +72,16 @@ export const videoPlayerInit = () => {
 
         videoPlayer.currentTime = (value * duration) / 100;
     });
+
+    videoFullScreen.addEventListener('click', () => {
+        videoPlayer.requestFullscreen();
+    });
+    videoFullScreen.style.cursor = 'pointer';
+
+    videoVolume.addEventListener('input', () => {
+        videoPlayer.volume = videoVolume.value / 100;
+    });
+    videoPlayer.volume = 0.5;
+    videoVolume.value = videoPlayer.volume * 100;
 
 };
